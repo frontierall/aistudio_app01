@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { GRID_SIZE, INITIAL_SPEED, KEY_CODES, MIN_SPEED, SPEED_DECREMENT } from './constants';
 import { Coordinate, Direction, GameStatus } from './types';
@@ -96,13 +97,11 @@ export default function App() {
       localStorage.setItem('pizza-dash-high-score', score.toString());
     }
     
-    // Trigger AI Commentary
-    if (process.env.API_KEY) {
-      setIsAiLoading(true);
-      const comment = await getGameOverCommentary(score);
-      setAiCommentary(comment);
-      setIsAiLoading(false);
-    }
+    // Trigger "AI" Commentary (Now local mock)
+    setIsAiLoading(true);
+    const comment = await getGameOverCommentary(score);
+    setAiCommentary(comment);
+    setIsAiLoading(false);
   }, [score, highScore]);
 
   const moveSnake = useCallback(() => {
@@ -319,7 +318,7 @@ export default function App() {
                         <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                 ) : (
-                    <p className="text-sm italic text-yellow-100">"{aiCommentary || "You're fired! (AI unavailable)"}"</p>
+                    <p className="text-sm italic text-yellow-100">"{aiCommentary || "You're fired!"}"</p>
                 )}
             </div>
 
